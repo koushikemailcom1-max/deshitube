@@ -1,27 +1,20 @@
 import streamlit as st
 
-st.set_page_config(page_title="শিক্ষা ও জ্ঞান", layout="wide")
+st.title("🇧🇩 দেশীটিউব (DeshiTube) সার্চ")
 
-st.title("📚 শিক্ষা ও জ্ঞানালয়")
-st.write("এখানে তুমি তোমার প্রয়োজনীয় সব শিক্ষামূলক ভিডিও একসাথে পাবে।")
+# সার্চ বক্স
+query = st.text_input("আপনি কী খুঁজতে চান? (যেমন: বাংলাদেশের ইতিহাস, শিক্ষা ক্লাস)")
 
-# শিক্ষার বিষয়ভিত্তিক ভিডিওর তালিকা
-education_data = {
-    "গণিত ক্লাস": [
-        {"title": "প্রাথমিক গণিত", "url": "https://www.youtube.com/watch?v=উদাহরণ১"},
-        {"title": "জ্যামিতি সহজপাঠ", "url": "https://www.youtube.com/watch?v=উদাহরণ২"}
-    ],
-    "বিজ্ঞান ও প্রযুক্তি": [
-        {"title": "বিজ্ঞান পরিচিতি", "url": "https://www.youtube.com/watch?v=উদাহরণ৩"}
-    ],
-    "ধর্মীয় শিক্ষা": [
-        {"title": "কুরআন শিক্ষা", "url": "https://www.youtube.com/watch?v=উদাহরণ৪"}
-    ]
-}
+if query:
+    # এখানে আমরা ইউটিউবের সার্চ লিংকে একটি ফিল্টার যুক্ত করে দিচ্ছি
+    # এতে রেজাল্টগুলো বাংলাদেশের কনটেন্টের কাছাকাছি থাকবে
+    search_url = f"https://www.youtube.com/results?search_query={query}+bangladesh+education+culture"
+    
+    st.write(f"অনুসন্ধানের ফলাফল দেখতে এখানে ক্লিক করুন:")
+    st.markdown(f"[{query} - এর ফলাফল দেখুন]( {search_url} )")
+    
+    st.info("আপনার সুবিধার্থে আমরা অনুসন্ধানে 'বাংলাদেশ' ফিল্টারটি যুক্ত করে দিয়েছি।")
 
-# প্রতিটি ক্যাটাগরি ও ভিডিও সাজানো
-for category, videos in education_data.items():
-    st.header(f"--- {category} ---")
-    for video in videos:
-        st.subheader(video["title"])
-        st.video(video["url"])
+st.divider()
+st.subheader("জনপ্রিয় ক্যাটাগরি:")
+st.write("১. শিক্ষা ও ক্লাস | ২. বাংলাদেশের সংস্কৃতি | ৩. খবরের আপডেট")
