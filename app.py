@@ -1,20 +1,25 @@
 import streamlit as st
+import requests
 
-st.title("🇧🇩 দেশীটিউব (DeshiTube) সার্চ")
+st.set_page_config(page_title="দেশীটিউব - গ্যালারি", layout="wide")
+st.title("🇧🇩 দেশীটিউব (DeshiTube)")
 
-# সার্চ বক্স
-query = st.text_input("আপনি কী খুঁজতে চান? (যেমন: বাংলাদেশের ইতিহাস, শিক্ষা ক্লাস)")
+# ভিডিও তালিকা (এখানে আপনার পছন্দের বাংলাদেশের ভিডিওর লিংক দিন)
+videos = [
+    {"title": "বাংলাদেশের সংস্কৃতি", "url": "https://www.youtube.com/watch?v=উদাহরণ১"},
+    {"title": "শিক্ষামূলক ক্লাস", "url": "https://www.youtube.com/watch?v=উদাহরণ২"}
+]
 
-if query:
-    # এখানে আমরা ইউটিউবের সার্চ লিংকে একটি ফিল্টার যুক্ত করে দিচ্ছি
-    # এতে রেজাল্টগুলো বাংলাদেশের কনটেন্টের কাছাকাছি থাকবে
-    search_url = f"https://www.youtube.com/results?search_query={query}+bangladesh+education+culture"
-    
-    st.write(f"অনুসন্ধানের ফলাফল দেখতে এখানে ক্লিক করুন:")
-    st.markdown(f"[{query} - এর ফলাফল দেখুন]( {search_url} )")
-    
-    st.info("আপনার সুবিধার্থে আমরা অনুসন্ধানে 'বাংলাদেশ' ফিল্টারটি যুক্ত করে দিয়েছি।")
+# গ্রিড আকারে ভিডিও প্রদর্শন
+cols = st.columns(2)
+for i, video in enumerate(videos):
+    with cols[i % 2]:
+        st.subheader(video['title'])
+        st.video(video['url'])
+        
+        # ডাউনলোড বাটন (এটি ব্রাউজারে ফাইল ডাউনলোড করবে)
+        st.info("দ্রষ্টব্য: ইউটিউব ভিডিওর স্বত্বাধিকারের কারণে সরাসরি ডাউনলোড বাটন দেওয়া সীমাবদ্ধ।")
+        st.write("ভিডিওটি দেখতে এখানে ক্লিক করুন। অফলাইনে দেখার জন্য ইউটিউব অ্যাপের অফলাইন ফিচার ব্যবহার করুন।")
 
-st.divider()
-st.subheader("জনপ্রিয় ক্যাটাগরি:")
-st.write("১. শিক্ষা ও ক্লাস | ২. বাংলাদেশের সংস্কৃতি | ৩. খবরের আপডেট")
+st.sidebar.header("আপনার প্রোফাইল")
+st.sidebar.write("এটি আপনার পার্সোনাল লার্নিং হাব।")
