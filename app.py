@@ -1,25 +1,29 @@
 import streamlit as st
-import requests
 
-st.set_page_config(page_title="দেশীটিউব - গ্যালারি", layout="wide")
-st.title("🇧🇩 দেশীটিউব (DeshiTube)")
+# অ্যাপের কনফিগারেশন
+st.set_page_config(page_title="বাংলাদেশী নিউজ পোর্টাল", layout="centered")
 
-# ভিডিও তালিকা (এখানে আপনার পছন্দের বাংলাদেশের ভিডিওর লিংক দিন)
-videos = [
-    {"title": "বাংলাদেশের সংস্কৃতি", "url": "https://www.youtube.com/watch?v=উদাহরণ১"},
-    {"title": "শিক্ষামূলক ক্লাস", "url": "https://www.youtube.com/watch?v=উদাহরণ২"}
-]
+st.title("📰 বাংলাদেশের খবরের কাগজ")
+st.write("এই প্ল্যাটফর্মটি শুধুমাত্র বাংলাদেশের সর্বশেষ খবর পড়ার জন্য তৈরি।")
 
-# গ্রিড আকারে ভিডিও প্রদর্শন
-cols = st.columns(2)
-for i, video in enumerate(videos):
-    with cols[i % 2]:
-        st.subheader(video['title'])
-        st.video(video['url'])
-        
-        # ডাউনলোড বাটন (এটি ব্রাউজারে ফাইল ডাউনলোড করবে)
-        st.info("দ্রষ্টব্য: ইউটিউব ভিডিওর স্বত্বাধিকারের কারণে সরাসরি ডাউনলোড বাটন দেওয়া সীমাবদ্ধ।")
-        st.write("ভিডিওটি দেখতে এখানে ক্লিক করুন। অফলাইনে দেখার জন্য ইউটিউব অ্যাপের অফলাইন ফিচার ব্যবহার করুন।")
+# খবরের কাগজের তালিকা ও লিংক
+news_papers = {
+    "প্রথম আলো": "https://www.prothomalo.com",
+    "ডেইলি স্টার": "https://www.thedailystar.net",
+    "কালের কণ্ঠ": "https://www.kalerkantho.com",
+    "বিডি নিউজ ২৪": "https://bdnews24.com",
+    "যুগান্তর": "https://www.jugantor.com",
+    "সমকাল": "https://samakal.com",
+    "ইনকিলাব": "https://www.dailyinkinlab.com",
+    "ইত্তেফাক": "https://www.ittefaq.com.bd"
+}
 
-st.sidebar.header("আপনার প্রোফাইল")
-st.sidebar.write("এটি আপনার পার্সোনাল লার্নিং হাব।")
+# প্রতিটি পত্রিকার জন্য বাটন তৈরি করা
+st.subheader("আপনার পছন্দের পত্রিকা বেছে নিন:")
+
+for name, url in news_papers.items():
+    if st.button(f"👉 {name}"):
+        st.markdown(f"আপনি {name} পড়ার জন্য লিংকে ক্লিক করুন: [এখানে ক্লিক করুন]({url})")
+
+st.divider()
+st.write("দ্রষ্টব্য: এই লিংকে ক্লিক করলে আপনি সরাসরি পত্রিকার ওয়েবসাইটে চলে যাবেন।")
