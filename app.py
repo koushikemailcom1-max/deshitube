@@ -1,29 +1,33 @@
 import streamlit as st
 
-# অ্যাপের কনফিগারেশন
-st.set_page_config(page_title="বাংলাদেশী নিউজ পোর্টাল", layout="centered")
+st.set_page_config(page_title="দেশী নিউজ হাব", layout="wide")
 
-st.title("📰 বাংলাদেশের খবরের কাগজ")
-st.write("এই প্ল্যাটফর্মটি শুধুমাত্র বাংলাদেশের সর্বশেষ খবর পড়ার জন্য তৈরি।")
+st.title("📰 দেশী নিউজ হাব")
+st.write("জাতীয়, স্থানীয় এবং সব ধরণের খবরের নির্ভরযোগ্য উৎস।")
 
-# খবরের কাগজের তালিকা ও লিংক
-news_papers = {
-    "প্রথম আলো": "https://www.prothomalo.com",
-    "ডেইলি স্টার": "https://www.thedailystar.net",
-    "কালের কণ্ঠ": "https://www.kalerkantho.com",
-    "বিডি নিউজ ২৪": "https://bdnews24.com",
-    "যুগান্তর": "https://www.jugantor.com",
-    "সমকাল": "https://samakal.com",
-    "ইনকিলাব": "https://www.dailyinkinlab.com",
-    "ইত্তেফাক": "https://www.ittefaq.com.bd"
+# খবরের ক্যাটাগরি অনুযায়ী ডাটা
+categories = {
+    "জাতীয় খবর": ["প্রথম আলো", "বিডি নিউজ ২৪", "ইত্তেফাক"],
+    "খেলাধুলা": ["ক্রিকইনফো", "ডেইলি স্টার স্পোর্টস"],
+    "প্রযুক্তি": ["টেকটিউনস", "প্রযুক্তি সমকাল"],
+    "বিনোদন": ["কালবেলা", "বিনোদন জগৎ"]
 }
 
-# প্রতিটি পত্রিকার জন্য বাটন তৈরি করা
-st.subheader("আপনার পছন্দের পত্রিকা বেছে নিন:")
+# প্রতিটি ক্যাটাগরির জন্য আলাদা ট্যাব
+tabs = st.tabs(list(categories.keys()))
 
-for name, url in news_papers.items():
-    if st.button(f"👉 {name}"):
-        st.markdown(f"আপনি {name} পড়ার জন্য লিংকে ক্লিক করুন: [এখানে ক্লিক করুন]({url})")
+for i, tab in enumerate(tabs):
+    with tab:
+        category_name = list(categories.keys())[i]
+        st.subheader(f"{category_name} - এর ওয়েবসাইটসমূহ")
+        
+        # প্রতিটি পত্রিকার জন্য বাটন
+        for paper in categories[category_name]:
+            if st.button(f"📰 {paper}", key=f"{category_name}_{paper}"):
+                st.info(f"আপনি {paper} পড়ার জন্য নির্বাচিত করেছেন।")
+                # এখানে পত্রিকাগুলোর মূল ইউআরএল গুলো পর্যায়ক্রমে যুক্ত করবেন
+                st.write(f"পড়ার জন্য এখানে যান: [লিংক](https://www.google.com)") 
 
 st.divider()
-st.write("দ্রষ্টব্য: এই লিংকে ক্লিক করলে আপনি সরাসরি পত্রিকার ওয়েবসাইটে চলে যাবেন।")
+st.write("📢 আপনার এলাকার খবর শেয়ার করতে চাইলে আমাদের গ্রুপে যোগ দিন:")
+st.link_button("👥 আমাদের নিউজ গ্রুপ", "https://www.facebook.com/groups/your_group_link")
